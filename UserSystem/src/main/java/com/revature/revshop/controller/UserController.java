@@ -13,12 +13,21 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    // Save or create a user
     @PostMapping("/save")
     public ResponseEntity<UserDTO> saveUser(@RequestBody UserDTO userDTO) {
         UserDTO savedUser = userService.saveUser(userDTO);
         return ResponseEntity.ok(savedUser);
     }
 
+    // Update an existing user by ID
+    @PutMapping("/update/{id}")
+    public ResponseEntity<UserDTO> updateUser(@PathVariable Long id, @RequestBody UserDTO userDTO) {
+        UserDTO updatedUser = userService.updateUser(id, userDTO);
+        return ResponseEntity.ok(updatedUser);
+    }
+
+    // Check if username exists
     @GetMapping("/exists")
     public ResponseEntity<String> checkUsername(@RequestParam String username) {
         if (userService.checkIfExists(username)) {
@@ -28,6 +37,7 @@ public class UserController {
         }
     }
 
+    // Remove a user by username
     @DeleteMapping("/remove")
     public ResponseEntity<String> removeUsername(@RequestParam String username) {
         try {
