@@ -1,0 +1,36 @@
+import java.util.concurrent.ConcurrentHashMap;
+
+public class ThreadExample {
+
+    private static ConcurrentHashMap<Integer, String> map = new ConcurrentHashMap<>();
+
+    public static void main(String[] args) {
+        Thread t1 = new Thread(() -> {
+            for (int i = 1; i <= 5; i++) {
+                map.put(i, "Value" + i);
+            }
+        });
+
+        Thread t2 = new Thread(() -> {
+            for (int i = 6; i <= 10; i++) {
+                map.put(i, "Value" + i);
+            }
+        });
+
+        Thread reader = new Thread(() -> {
+            for (int i = 1; i <= 10; i++) {
+                System.out.println("Key: " + i + ", Value: " + map.get(i));
+            }
+        });
+
+        t1.start();
+        t2.start();
+
+
+            t1.join();
+            t2.join();
+   
+
+        reader.start();
+    }
+}
