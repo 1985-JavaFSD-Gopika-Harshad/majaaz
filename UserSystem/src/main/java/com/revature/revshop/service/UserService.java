@@ -6,7 +6,9 @@ import com.revature.revshop.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class UserService {
@@ -36,10 +38,28 @@ public class UserService {
 
         if (userOptional.isPresent()) {
             User user = userOptional.get();
-            user.setUsername(userDTO.getUsername());  // You can add more fields here if needed
+            user.setUsername(userDTO.getUsername());
 
             User updatedUser = userRepository.save(user);
             return new UserDTO(updatedUser.getId(), updatedUser.getUsername());
+        } else {
+            throw new RuntimeException("User with ID " + id + " not found");
+        }
+    }
+
+    // Get all users
+    public List<UserDTO> getAllUsers() {
+        List<User> users = userRepository.findAll();
+        return users.stream()
+                .map(user -> new UserDTO(user.getId(), user.getUsername()))
+                .collect(Collectors.toList());
+    }
+
+    // Delete a user by ID
+    public void deleteUserById(Long id) {
+        Optional<User> userOptional = userRepository.findById(id);
+        if (userOptional.isPresent()) {
+            userRepository.deleteById(id);
         } else {
             throw new RuntimeException("User with ID " + id + " not found");
         }

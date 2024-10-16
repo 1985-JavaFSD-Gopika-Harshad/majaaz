@@ -1,0 +1,19 @@
+import java.util.HashMap;
+import java.util.Map;
+
+public class StudentGrades {
+    public static void main(String[] args) {
+        Map<Integer, String> studentGrades = new HashMap<>();
+
+        studentGrades.put(1, "A");
+        studentGrades.put(2, "B");
+        studentGrades.put(3, "A");
+        studentGrades.put(4, "C");
+
+        String grade = studentGrades.get(2);
+        System.out.println("Student 2's grade: " + grade);
+
+        studentGrades.put(2, "A-");
+        System.out.println("Updated Student 2's grade: " + studentGrades.get(2));
+    }
+}
