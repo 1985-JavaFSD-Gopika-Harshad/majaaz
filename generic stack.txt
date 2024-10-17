@@ -1,0 +1,41 @@
+import java.util.LinkedList;
+
+public class GenericStack<T> {
+    private LinkedList<T> stack = new LinkedList<>();
+
+    public void push(T item) {
+        stack.addFirst(item);
+    }
+
+    public T pop() {
+        if (isEmpty()) {
+            throw new RuntimeException("Stack is empty");
+        }
+        return stack.removeFirst();
+    }
+
+    public T peek() {
+        if (isEmpty()) {
+            throw new RuntimeException("Stack is empty");
+        }
+        return stack.getFirst();
+    }
+
+    public boolean isEmpty() {
+        return stack.isEmpty();
+    }
+
+    public int size() {
+        return stack.size();
+    }
+
+    public static void main(String[] args) {
+        GenericStack<Integer> intStack = new GenericStack<>();
+        intStack.push(1);
+        intStack.push(2);
+        System.out.println(intStack.pop()); 
+        System.out.println(intStack.peek()); 
+        System.out.println(intStack.size()); 
+        System.out.println(intStack.isEmpty()); 
+    }
+}
