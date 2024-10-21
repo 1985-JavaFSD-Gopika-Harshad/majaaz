@@ -1,0 +1,17 @@
+import java.util.List;
+
+public class BoundedTypeExample {
+    public static void printList(List<? extends Number> list) {
+        for (Number number : list) {
+            System.out.println(number);
+        }
+    }
+
+    public static void main(String[] args) {
+        List<Integer> intList = List.of(1, 2, 3, 4);
+        List<Double> doubleList = List.of(1.1, 2.2, 3.3);
+
+        printList(intList);
+        printList(doubleList);
+    }
+}
